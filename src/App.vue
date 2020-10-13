@@ -1,28 +1,35 @@
 <template>
-  <GlobaHeader :user="User"/>
-  <router-view/>
+<GlobaHeader :user="User" />
+<router-view />
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
-import GlobaHeader, { HeaderProps } from './components/GlobalHeader.vue'
+import {
+  defineComponent
+} from 'vue'
+import GlobaHeader, {
+  HeaderProps
+} from './components/GlobalHeader.vue'
 
 const User: HeaderProps = {
   isLogin: true,
   name: 'admin',
   id: 1
-  
+
 }
 export default defineComponent({
   components: {
     GlobaHeader
+
   },
-  setup () {
+  setup() {
     return {
       User
     }
   }
 })
 </script>
+
 <style lang="scss">
 
 </style>

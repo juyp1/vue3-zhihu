@@ -7,6 +7,7 @@ module.exports = {
     'plugin:vue/vue3-essential',
     '@vue/standard',
     '@vue/typescript/recommended'
+    
   ],
   parserOptions: {
     ecmaVersion: 2020
@@ -14,6 +15,8 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-trailing-spaces':'off'
+    'no-trailing-spaces':'off',
+    '@typescript-eslint/type-annotation-spacing':'off',
+    'space-before-function-paren':"off"
   }
 }
