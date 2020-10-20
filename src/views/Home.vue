@@ -1,12 +1,14 @@
 <template>
   <div class="container">
-    <CloumnList :list="testData"/>
+    <!-- <CloumnList :list="testData"/> -->
+    <Form/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import CloumnList, { ColumnProps } from '../components/ColumnList.vue'
+import Form from '../components/From.vue'
 const testData: ColumnProps[] = [{
   id: 1,
   title: 'test1的专栏',
@@ -31,7 +33,8 @@ const testData: ColumnProps[] = [{
 export default defineComponent({
   name: 'Home',
   components: {
-    CloumnList
+    // CloumnList,
+    Form
   },
   setup () {
     return {

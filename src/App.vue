@@ -1,5 +1,6 @@
 <template>
 <GlobaHeader :user="User" />
+
 <router-view />
 </template>
 

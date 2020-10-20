@@ -17,6 +17,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-trailing-spaces':'off',
     '@typescript-eslint/type-annotation-spacing':'off',
-    'space-before-function-paren':"off"
+    'space-before-function-paren':"off",
+    'no-useless-escape':'off'
   }
 }

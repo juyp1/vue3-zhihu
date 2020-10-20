@@ -15,8 +15,10 @@ import {
   ref,
   defineComponent,
   onMounted,
-  onUnmounted
+  onUnmounted,
+  watch
 } from 'vue'
+import userClickOutside from '../hooks/userClickOutside'
 export default defineComponent({
   name: 'Dropdown',
   props: {
@@ -31,20 +33,13 @@ export default defineComponent({
     const toggleOpen = () => {
       isOpen.value = !isOpen.value
     }
-    const handler = (e:MouseEvent) => {
-      if (dropdownRef.value) {
-        if (!dropdownRef.value.contains(e.target as HTMLElement) && isOpen.value) {
-          isOpen.value = false
-        } else {
-           
-        }
+    
+    const isClickOutside = userClickOutside(dropdownRef)
+   
+    watch(isClickOutside, () => {
+      if (isOpen.value && isClickOutside.value) {
+        isOpen.value = false
       }
-    }
-    onMounted(() => {
-      document.addEventListener('click', handler)
-    })
-    onUnmounted(() => {
-      document.removeEventListener('click', handler)
     })
     return {
       isOpen,
