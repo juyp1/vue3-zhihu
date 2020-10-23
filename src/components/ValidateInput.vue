@@ -3,9 +3,11 @@
     <input type="input"
            class="form-control"
            id="exampleInputinput1"
-           v-model="inputRef.val"
+            :value="modelValue"
            @blur="validateinput"
            :class="{'is-invalid':inputRef.error}"
+           @input="inputvalue"
+           v-bind="$attrs"
             >
     <div class="invalid-feedback"
          v-if="inputRef.error">{{inputRef.message}}</div>
@@ -13,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue'
+import { defineComponent, reactive, PropType, InputHTMLAttributes } from 'vue'
 const regTest = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
 interface ReleProp {
   type: 'required' |'input'|'email';
@@ -23,18 +25,21 @@ export type RulesProps = ReleProp[];
 export default defineComponent({
   name: '',
   props: {
-    rules: Array as PropType<RulesProps>
+    rules: Array as PropType<RulesProps>,
+    modelValue: String
+
   },
-  setup(props) {
+  inheritAttrs: false,
+  setup(props, context) {
     const inputRef = reactive({
-      val: '',
+      val: props.modelValue || '',
       error: false,
       message: ''
     })
     const validateinput = () => {
       let passed = true
       if (props.rules) {
-        const allPassed = props.rules.every(rule => {
+        props.rules.every(rule => {
           inputRef.message = rule.message
           switch (rule.type) {
             case 'required':
@@ -59,7 +64,13 @@ export default defineComponent({
       //   inputRef.message = '邮箱格式错误'
       // }
     }
+    const inputvalue = (e:KeyboardEvent) => {
+      const _inputvalue = (e.target as HTMLInputElement).value
+      inputRef.val = _inputvalue
+      context.emit('update:modelValue', _inputvalue)
+    }   
     return {
+      inputvalue,
       inputRef,
       validateinput
     }

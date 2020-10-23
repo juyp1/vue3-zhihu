@@ -1,15 +1,25 @@
 <template>
   <div class="container">
     <!-- <CloumnList :list="testData"/> -->
-    <validate-input  :rules="emailRules"></validate-input>
+    <validate-input :rules="emailRules" placeholder="请输入邮箱" type="text"
+                    v-model="emailval"></validate-input>
+                      <validate-input   placeholder="请输入密码" type="password"
+                  ></validate-input>
+    {{emailval}}
+    <Select :rules="selectRules" v-model="selectval">
+      <option :value="item.id" v-for="item in demodata" :key="item.id">{{item.name}}</option>
+   
+    </Select>
+    {{selectval}}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import CloumnList, { ColumnProps } from '../components/ColumnList.vue'
 import Form from '../components/From.vue'
 import ValidateInput, { RulesProps } from '../components/ValidateInput.vue'
+import Select, { RulesProps as selectRulesProps } from '../components/Select.vue'
 const testData: ColumnProps[] = [
   {
     id: 1,
@@ -39,11 +49,31 @@ const testData: ColumnProps[] = [
 export default defineComponent({
   name: 'Home',
   components: {
-    ValidateInput
+    ValidateInput,
+    Select
     // CloumnList,
     // Form
   },
   setup() {
+    const emailval = ref('')
+    const selectval = ref(2)
+    const demodata = ref([{
+      id: 1,
+      name: 'iphone4'
+    }, {
+      id: 2,
+      name: 'iphone4s'
+    }, {
+      id: 3,
+      name: 'iphone5'
+    }, {
+      id: 4,
+      name: 'iphone5s'
+    }])
+    const selectRules:selectRulesProps = [{
+      type: 'required',
+      message: '请选择分类'
+    }]
     const emailRules: RulesProps = [
       {
         type: 'required',
@@ -55,8 +85,13 @@ export default defineComponent({
       }
     ]
     return {
+      emailval,
+      selectval,
       emailRules,
-      testData
+      selectRules,
+      testData,
+      demodata
+      
     }
   }
 })
