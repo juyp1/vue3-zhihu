@@ -1,31 +1,30 @@
 <template>
-  <div>
-    <input type="input"
-           class="form-control"
-           id="exampleInputinput1"
-            :value="modelValue"
-           @blur="validateinput"
-           :class="{'is-invalid':inputRef.error}"
-           @input="inputvalue"
-           v-bind="$attrs"
-            >
-    <div class="invalid-feedback"
-         v-if="inputRef.error">{{inputRef.message}}</div>
-  </div>
+<div>
+  <input type="input" class="form-control" :value="modelValue" @blur="validateinput" :class="{'is-invalid':inputRef.error}" @input="inputvalue" v-bind="$attrs">
+  <div class="invalid-feedback" v-if="inputRef.error">{{inputRef.message}}</div>
+</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType, InputHTMLAttributes } from 'vue'
+import {
+  emitter
+} from './ValidateForm.vue'
+import {
+  defineComponent,
+  reactive,
+  PropType,
+  onMounted
+} from 'vue'
 const regTest = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
 interface ReleProp {
-  type: 'required' |'input'|'email';
+  type: 'required' | 'input' | 'email';
   message: string;
 }
 export type RulesProps = ReleProp[];
 export default defineComponent({
   name: '',
   props: {
-    rules: Array as PropType<RulesProps>,
+    rules: Array as PropType < RulesProps > ,
     modelValue: String
 
   },
@@ -39,7 +38,7 @@ export default defineComponent({
     const validateinput = () => {
       let passed = true
       if (props.rules) {
-        props.rules.every(rule => {
+        const allpass = props.rules.every(rule => {
           inputRef.message = rule.message
           switch (rule.type) {
             case 'required':
@@ -54,8 +53,11 @@ export default defineComponent({
           return passed
         })
         inputRef.error = !passed
+        return allpass
+      } else {
+        return true
       }
-     
+
       // if (inputRef.val.trim() === '') {
       //   inputRef.error = true
       //   inputRef.message = '请输入邮箱'
@@ -64,18 +66,21 @@ export default defineComponent({
       //   inputRef.message = '邮箱格式错误'
       // }
     }
-    const inputvalue = (e:KeyboardEvent) => {
+    const inputvalue = (e: KeyboardEvent) => {
       const _inputvalue = (e.target as HTMLInputElement).value
       inputRef.val = _inputvalue
       context.emit('update:modelValue', _inputvalue)
-    }   
+    }
+    onMounted(() => {
+      emitter.emit('foo', validateinput)
+    })
     return {
       inputvalue,
       inputRef,
       validateinput
     }
   }
-  
+
 })
 </script>
 

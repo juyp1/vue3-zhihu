@@ -18,6 +18,9 @@ module.exports = {
     'no-trailing-spaces':'off',
     '@typescript-eslint/type-annotation-spacing':'off',
     'space-before-function-paren':"off",
-    'no-useless-escape':'off'
+    'no-useless-escape':'off',
+    'func-call-spacing':'off',
+    'indent':'off',
+    'comma-spacing':'off'
   }
 }

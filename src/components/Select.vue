@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <select class="selectpicker form-control"
-            :class="{'is-invalid':selectRef.error}"
-            @change="handleSelect"
-            v-model="selectRef.val">
-      <slot></slot>
-    </select>
-    <div class="invalid-feedback"
-         v-if="selectRef.error">{{selectRef.message}}</div>
-  </div>
+<div>
+  <select v-bind="$attrs" class="selectpicker form-control" :class="{'is-invalid':selectRef.error}" @change="handleSelect" v-model="selectRef.val">
+    <slot></slot>
+  </select>
+  <div class="invalid-feedback" v-if="selectRef.error">{{selectRef.message}}</div>
+</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue'
+import {
+  defineComponent,
+  PropType,
+  reactive
+} from 'vue'
 interface ReleProp {
   type: 'required';
   message: string;
@@ -23,9 +23,10 @@ export default defineComponent({
   name: '',
   inheritAttrs: false,
   props: {
-    rules: Array as PropType<RulesProps>,
+    rules: Array as PropType <RulesProps>,
     modelValue: String
   },
+
   setup(props, context) {
     const selectRef = reactive({
       val: props.modelValue || '',
