@@ -1,10 +1,11 @@
 <template>
 <GlobaHeader :user="User" />
-
+ 
 <router-view />
 </template>
 
 <script lang="ts">
+import { useStore } from 'vuex'
 import {
   defineComponent
 } from 'vue'
@@ -13,9 +14,8 @@ import GlobaHeader, {
 } from './components/GlobalHeader.vue'
 
 const User: HeaderProps = {
-  isLogin: true,
-  name: 'admin',
-  id: 1
+  isLogin: false,
+  name: ''
 
 }
 export default defineComponent({
@@ -24,8 +24,9 @@ export default defineComponent({
 
   },
   setup() {
+   const store = useStore()
     return {
-      User
+      User: store.state.user
     }
   }
 })

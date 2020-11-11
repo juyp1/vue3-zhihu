@@ -28,6 +28,7 @@ export default defineComponent({
       context.emit('form-submit', result)
     }
     const callback = (func: any) => {
+      console.log('func',func)
       funcArr.push(func)
     }
     emitter.on('foo', callback)

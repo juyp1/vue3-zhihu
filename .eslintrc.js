@@ -21,6 +21,8 @@ module.exports = {
     'no-useless-escape':'off',
     'func-call-spacing':'off',
     'indent':'off',
-    'comma-spacing':'off'
+    'comma-spacing':'off',
+    'vue/no-unused-components':'off',
+    'vue/no-textarea-mustache':'off'
   }
 }
