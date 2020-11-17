@@ -1,6 +1,6 @@
 <template>
 <GlobaHeader :user="User" />
- 
+ <loader text="正在努力加载" v-if="store.state.loading"></loader>
 <router-view />
 </template>
 
@@ -12,7 +12,7 @@ import {
 import GlobaHeader, {
   HeaderProps
 } from './components/GlobalHeader.vue'
-
+import Loader from './components/Loader.vue'
 const User: HeaderProps = {
   isLogin: false,
   name: ''
@@ -20,13 +20,14 @@ const User: HeaderProps = {
 }
 export default defineComponent({
   components: {
-    GlobaHeader
-
+    GlobaHeader,
+Loader
   },
   setup() {
    const store = useStore()
     return {
-      User: store.state.user
+      User: store.state.user,
+      store
     }
   }
 })

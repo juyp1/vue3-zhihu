@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="cloumnList">
-      <h2>我是Loading 😊 😊</h2>
+    
        <CloumnList  :list="list"/>
     </div>
   </div>
@@ -32,11 +32,12 @@ export default defineComponent({
       }
     })
     onMounted(() => { // C6A6C4086133360B
-    console.log(store)
+    console.log(store.state.loading)
       store.dispatch('feachColumns',model.params)
     })
     return {
-     list
+     list,
+     store
     }
   }
 })

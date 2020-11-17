@@ -47,7 +47,9 @@ class HttpRequest {
     })
     // 响应拦截
     instance.interceptors.response.use((res: { data: any; status: any }) => {
-      store.commit('setLoading', false)
+      setTimeout(() => {
+        store.commit('setLoading', false) 
+      }, 2300)
       this.distroy(url)
       const { data, status } = res
       return { data, status }
